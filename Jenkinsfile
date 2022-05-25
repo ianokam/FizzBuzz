@@ -36,7 +36,8 @@ pipeline {
                 echo "the job has been tested"
                 sh   'pip3 install pytest'        // install pytest
                 sh   'pip3 install pytest-cov'    // install pytest-coverage
-                sh   'python3 -m pytest-cov'   // Run Tests & Check Coverage
+                sh   'python3 -m pytest'          // Run Tests & Check Coverage
+                sh   'python3 -m coverage'        // Run Tests & Check Coverage
             }
         }
 //         //-----------------------------------
