@@ -23,9 +23,9 @@ pipeline {
         //-----------------------------------
         stage('Build') { 
             steps {
-                git 'https://github.com/ianokam/FizzBuzz.git'
+//                 git 'https://github.com/ianokam/FizzBuzz.git'
                 sh  'python -m py_compile main.py' 
-                stash(name: 'compiled-results', includes: 'sources/*.py*')
+//                 stash(name: 'compiled-results', includes: 'sources/*.py*')
             }
         }
 //         //-----------------------------------
