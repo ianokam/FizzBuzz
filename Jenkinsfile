@@ -36,8 +36,7 @@ pipeline {
                 echo "the job has been tested"
                 sh   'pip3 install pytest'           // install pytest
                 sh   'pip3 install pytest-cov'       // install pytest-coverage
-                export PATH="/Users/ibeawuchi/Library/Python/3.8/bin/:$PATH"
-                sh   'pytest --cov'   // Run Tests & Check Coverage
+                sh   'pytest'   // Run Tests & Check Coverage
             }
         }
 //         //-----------------------------------
