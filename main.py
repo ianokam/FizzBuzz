@@ -116,6 +116,8 @@ def main():
         print("An exception occurred")
 
     print( fizzBuzz( x ) )
+    print( fizzBuzz( x ) )
+    print( fizzBuzz( x ) )
     
 # ---------------------------------------
 # Main Function Return                  :
