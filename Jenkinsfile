@@ -40,7 +40,7 @@ pipeline {
         //-----------------------------------
         stage('Deploy') { 
             steps {
-                // 
+                echo "the job has been deployed" 
             }
         }
     }
