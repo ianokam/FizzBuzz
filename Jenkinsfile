@@ -37,7 +37,7 @@ pipeline {
                 sh   'pip3 install pytest'        // install pytest
                 sh   'pip3 install pytest-cov'    // install pytest-coverage
                 sh   'python3 -m pytest'          // Run Tests & Check Coverage
-                sh   'python3 -m coverage report' // Run Tests & Check Coverage
+                sh   'python3 -m coverage report FizzBuzz' // Run Tests & Check Coverage
             }
         }
 //         //-----------------------------------
