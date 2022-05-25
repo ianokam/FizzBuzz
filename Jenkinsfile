@@ -28,14 +28,17 @@ pipeline {
 //                 stash(name: 'compiled-results', includes: 'sources/*.py*')
             }
         }
-//         //-----------------------------------
-//         // TEST                             :
-//         //-----------------------------------
-//         stage('Test') { 
-//             steps {
-//                 echo "the job has been tested"
-//             }
-//         }
+        //-----------------------------------
+        // TEST                             :
+        //-----------------------------------
+        stage('Test') { 
+            steps {
+                echo "the job has been tested"
+                sh   'pip3 install pytest'           // install pytest
+                sh   'pip3 install pytest-cov'       // install pytest-coverage
+                sh   'pytest --cov ProductionCode'   // Run Tests & Check Coverage
+            }
+        }
 //         //-----------------------------------
 //         // DEPLOY                           :
 //         //-----------------------------------
