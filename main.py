@@ -110,7 +110,8 @@ def main():
     # --------------------------------------------------------------------
     print('Enter a positive integer:')
     try:
-        x = int(  input() )
+#         x = int(  input() )
+        x = 3
     except:
         print("An exception occurred")
 
