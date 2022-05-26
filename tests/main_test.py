@@ -2,7 +2,7 @@
 # importing sys
 import sys
 # adding Folder_2 to the system path
-sys.path.insert(0, '/Users/ibeawuchi/.jenkins/workspace/FizzBuzz-Python/Program')
+sys.path.insert(0, '/Users/ibeawuchi/.jenkins/workspace/FizzBuzz-Python/src/program_package')
 # import main
 from main import fizzBuzz
 
