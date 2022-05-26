@@ -91,9 +91,18 @@ pipeline {
             steps {
                 echo "=================== [    ARTIFACT PACKAGING START    ] =================================================================================================================="   
                 echo ". . ."   
+                
 //                 sh   'rm -rf *.tar.gz'                                                                           // Artifact Deletion   : Delete Old instances, if any, of the Build package
 //                 sh   'tar czf	FizzBuzz-$BUILD_NUMBER.tar.gz node_modules main.js package.json public LICENSE'  // Artifact Packaging  : Package the web app for Deployment [ ref: https://www.youtube.com/watch?v=XQt4fzt3bUc&t=262s ]
 //                 sh   '..'                                                                                        // Artifact Publishing : nexus repository ( https://www.sonatype.com/products/nexus-repository )
+                
+                
+// ref:  https://noise.getoto.net/2020/10/06/integrating-jenkins-with-aws-codeartifact-to-publish-and-consume-python-artifacts/
+//                 sh 'python3 setup.py sdist bdist_wheel'                                                                      // Build the Python package
+//                 sh 'aws codeartifact login --tool twine --domain my-domain --repository my-repository --region my-region'    // Run the aws codeartifact login AWS Command Line Interface (AWS CLI) command, which retrieves the access token for CodeArtifact and configures the twine client
+//                 sh 'python3 -m twine upload dist/* --repository codeartifact'                                                // Use twine to publish the Python package to CodeArtifact
+                
+                
                 echo "=================== [  ARTIFACT PACKAGING COMPLETE   ] =================================================================================================================="   
             }
         }
