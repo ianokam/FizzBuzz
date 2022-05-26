@@ -167,13 +167,18 @@ pipeline {
         stage('Artifact - Deploying the Distribution Archives') { 
             steps {
 
-                withCredentials([usernamePassword(credentialsId: 'AWS', passwordVariable: 'AWS_SECRET_ACCESS_KEY', usernameVariable: 'AWS_ACCESS_KEY_ID')]) 
+                withCredentials([ usernamePassword (
+                    credentialsId:    'AWS', 
+                    passwordVariable: 'AWS_SECRET_ACCESS_KEY', 
+                    usernameVariable: 'AWS_ACCESS_KEY_ID'         )]) 
                 {
                     // Uploading the distribution archives ::
                     // ref:  https://noise.getoto.net/2020/10/06/integrating-jenkins-with-aws-codeartifact-to-publish-and-consume-python-artifacts/
-                    sh 'python3 -m pip install --upgrade twine'                                                                  // Install Twine *
+                    sh 'python3 -m pip install --upgrade twine'                                                                     // Install Twine *
+                    sh 'pip3 install awscli --upgrade --user'                                                                       // AWS CLI 1 -- ref: https://docs.aws.amazon.com/cli/v1/userguide/install-windows.html
+                    sh 'aws --version'                                                                                              // Verify that the AWS CLI version 1 is installed correctly
                     // sh 'python3 setup.py sdist bdist_wheel'                                                                      // Build the Python package
-                    aws 'aws codeartifact login --tool twine --domain fizzbuzz-python-domain --repository FizzBuzz-Python-repository --region us-east-1'    // Run the aws codeartifact login AWS Command Line Interface (AWS CLI) command, which retrieves the access token for CodeArtifact and configures the twine client
+                    sh 'aws codeartifact login --tool twine --domain fizzbuzz-python-domain --repository FizzBuzz-Python-repository --region us-east-1'    // Run the aws codeartifact login AWS Command Line Interface (AWS CLI) command, which retrieves the access token for CodeArtifact and configures the twine client
                     sh 'python3 -m twine upload dist/* --repository codeartifact'                                                // Use twine to publish the Python package to CodeArtifact          
                   //sh   '..'                                                                                        // Artifact Publishing : nexus repository ( https://www.sonatype.com/products/nexus-repository )
                 }
