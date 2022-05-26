@@ -1,13 +1,14 @@
 pipeline {
-    //-------------------------------------
-    // AGENT                              :
-    //-------------------------------------
+
+    //-------------------------------------------------------------------------------------------------------
+    // AGENT CREATION                                                                                       :
+    //-------------------------------------------------------------------------------------------------------
     agent any 
 
-//-------------------------------------------------
-    //-------------------------------------
-    // STAGES BEGIN                       :
-    //-------------------------------------
+
+    //-------------------------------------------------------------------------------------------------------
+    // STAGING                                                                                              :
+    //-------------------------------------------------------------------------------------------------------
     stages {
         //-----------------------------------------------------------
         //  R A W   D A T A                                         :
@@ -31,7 +32,7 @@ pipeline {
             steps {
                 echo "=================== [          BUILD START           ] =================================================================================================================="   
 //                 git 'https://github.com/ianokam/FizzBuzz.git'               //****************CHECK
-                sh  'python3 Program/*'     // Singular File := 'python3 Program/main.py' 
+                sh  'python3 src/*'     // Singular File := 'python3 src/main.py' 
 //                 stash(name: 'compiled-results', includes: 'sources/*.py*')  //****************CHECK
                 echo "The JOB has been BUILT . . ."                   // ...
                 echo "=================== [         BUILD COMPLETE         ] =================================================================================================================="   
@@ -48,7 +49,7 @@ pipeline {
                 echo "=================== [          TEST START            ] =================================================================================================================="   
                 sh   'pip3 install pytest'                             // install pytest
                 sh   'pip3 install pytest-cov'                         // install pytest-coverage
-                sh   'python3 -m pytest --cov Program'                               // Run Tests & Check Coverage | Alt: sh   'python3 -m coverage report'
+                sh   'python3 -m pytest --cov src'                     // Run Tests & Check Coverage | Alt: sh   'python3 -m coverage report'
                 echo "The JOB has been TESTED . . ."                   // ...
                 echo "=================== [         TEST COMPLETE          ] =================================================================================================================="   
             }
@@ -87,22 +88,17 @@ pipeline {
         //-----------------------------------------------------------
         // ARTIFACT PACKAGING               :
         //-----------------------------------
-        stage('Artifact-Package') { 
+        // ref: https://packaging.python.org/en/latest/tutorials/packaging-projects/
+        stage('Artifact - Generating the Distribution Archives') { 
             steps {
+                // Generating distribution archives ::
                 echo "=================== [    ARTIFACT PACKAGING START    ] =================================================================================================================="   
-                echo ". . ."   
-                
-//                 sh   'rm -rf *.tar.gz'                                                                           // Artifact Deletion   : Delete Old instances, if any, of the Build package
-//                 sh   'tar czf	FizzBuzz-$BUILD_NUMBER.tar.gz node_modules main.js package.json public LICENSE'  // Artifact Packaging  : Package the web app for Deployment [ ref: https://www.youtube.com/watch?v=XQt4fzt3bUc&t=262s ]
-//                 sh   '..'                                                                                        // Artifact Publishing : nexus repository ( https://www.sonatype.com/products/nexus-repository )
-                
-                
-// ref:  https://noise.getoto.net/2020/10/06/integrating-jenkins-with-aws-codeartifact-to-publish-and-consume-python-artifacts/
-//                 sh 'python3 setup.py sdist bdist_wheel'                                                                      // Build the Python package
-//                 sh 'aws codeartifact login --tool twine --domain my-domain --repository my-repository --region my-region'    // Run the aws codeartifact login AWS Command Line Interface (AWS CLI) command, which retrieves the access token for CodeArtifact and configures the twine client
-//                 sh 'python3 -m twine upload dist/* --repository codeartifact'                                                // Use twine to publish the Python package to CodeArtifact
-                
-                
+                sh   'rm -rf *.tar.gz'                          // Artifact Deletion : Delete Old instances, if any, of the Build package
+                sh   'python3 -m pip install --upgrade build'   // Download the  latest version of PyPA’s build 
+                sh   'python3 -m build'                         // Run this command from the same directory where pyproject.toml is located
+                //------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+                //                 sh   'rm -rf *.tar.gz'                                                                           // Artifact Deletion   : Delete Old instances, if any, of the Build package
+                //                 sh   'tar czf	FizzBuzz-$BUILD_NUMBER.tar.gz node_modules main.js package.json public LICENSE'  // Artifact Packaging  : Package the web app for Deployment [ ref: https://www.youtube.com/watch?v=XQt4fzt3bUc&t=262s ]
                 echo "=================== [  ARTIFACT PACKAGING COMPLETE   ] =================================================================================================================="   
             }
         }
@@ -112,15 +108,19 @@ pipeline {
         //-----------------------------------------------------------
         // ARTIFACT DEPLOYMENT              :
         //-----------------------------------
-        stage('Artifact-Deploy') { 
+        stage('Artifact - Deploying the Distribution Archives') { 
             steps {
                 
-                echo ". . ."             
+                echo ". . ."   
+                // Uploading the distribution archives ::
+                // ref:  https://noise.getoto.net/2020/10/06/integrating-jenkins-with-aws-codeartifact-to-publish-and-consume-python-artifacts/
+                //                 sh 'python3 -m pip install --upgrade twine'                                                                  // Install Twine *
+                //                 sh 'python3 setup.py sdist bdist_wheel'                                                                      // Build the Python package
+                //                 sh 'aws codeartifact login --tool twine --domain my-domain --repository my-repository --region my-region'    // Run the aws codeartifact login AWS Command Line Interface (AWS CLI) command, which retrieves the access token for CodeArtifact and configures the twine client
+                //                 sh 'python3 -m twine upload dist/* --repository codeartifact'                                                // Use twine to publish the Python package to CodeArtifact          
+                            //                 sh   '..'                                                                                        // Artifact Publishing : nexus repository ( https://www.sonatype.com/products/nexus-repository )
             }
         }
     }
-    //-------------------------------------
-    // STAGES END.                        :
-    //-------------------------------------
-  
+
 }
