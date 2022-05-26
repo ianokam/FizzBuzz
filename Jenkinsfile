@@ -30,9 +30,9 @@ pipeline {
         stage('Build') { 
             steps {
                 echo "=================== [          BUILD START           ] =================================="   
-                git 'https://github.com/ianokam/FizzBuzz.git'
-                sh  'python3 main.py' 
-                stash(name: 'compiled-results', includes: 'sources/*.py*')
+                git 'https://github.com/ianokam/FizzBuzz.git'               //****************CHECK
+                sh  'python3 Program/main.py' 
+                stash(name: 'compiled-results', includes: 'sources/*.py*')  //****************CHECK
                 echo "The JOB has been BUILT . . ."                   // ...
                 echo "=================== [         BUILD COMPLETE         ] =================================="   
             }
@@ -48,8 +48,8 @@ pipeline {
                 echo "=================== [          TEST START            ] =================================="   
                 sh   'pip3 install pytest'                             // install pytest
                 sh   'pip3 install pytest-cov'                         // install pytest-coverage
-                sh   'python3 -m pytest'                               // Run Tests & Check Coverage
-                sh   'python3 -m coverage report main.py main_test.py' // Run Tests & Check Coverage
+                sh   'python3 -m pytest Test'                               // Run Tests & Check Coverage
+                sh   'python3 -m coverage report Test' // Run Tests & Check Coverage
                 echo "The JOB has been TESTED . . ."                   // ...
                 echo "=================== [         TEST COMPLETE          ] =================================="   
             }
