@@ -53,67 +53,47 @@ pipeline {
                 echo "=================== [         TEST COMPLETE          ] =================================================================================================================="   
             }
         }
-//         stage('Integration Tests') { 
-//             steps {
-//                       Requirement already satisfied: pyparsing!=3.0.5,>=2.0.2 in /Users/ibeawuchi/Library/Python/3.8/lib/python/site-packages (from packaging->pytest>=4.6->pytest-cov) (3.0.9)
-//                 echo "=================== [          TEST START            ] ================================================================================================================="   
-//                 sh   'pip3 install pytest'                             // install pytest
-//                 sh   'pip3 install pytest-cov'                         // install pytest-coverage
-//                 sh   'python3 -m pytest --cov Program'                               // Run Tests & Check Coverage
-//                 echo "The JOB has been TESTED . . ."                   // ...
-//                 echo "=================== [         TEST COMPLETE          ] ================================================================================================================="   
-//             }
-//         }
-//         stage('System Tests') { 
-//             steps {
-//                       Requirement already satisfied: pyparsing!=3.0.5,>=2.0.2 in /Users/ibeawuchi/Library/Python/3.8/lib/python/site-packages (from packaging->pytest>=4.6->pytest-cov) (3.0.9)
-//                 echo "=================== [          TEST START            ] ================================================================================================================="   
-//                 sh   'pip3 install pytest'                             // install pytest
-//                 sh   'pip3 install pytest-cov'                         // install pytest-coverage
-//                 sh   'python3 -m pytest --cov Program'                               // Run Tests & Check Coverage
-//                 echo "The JOB has been TESTED . . ."                   // ...
-//                 echo "=================== [         TEST COMPLETE          ] ================================================================================================================="   
-//             }
-//         }
-//         stage('Acceptance Tests (UAD)') { 
-//             steps {
-//                       Requirement already satisfied: pyparsing!=3.0.5,>=2.0.2 in /Users/ibeawuchi/Library/Python/3.8/lib/python/site-packages (from packaging->pytest>=4.6->pytest-cov) (3.0.9)
-//                 echo "=================== [          TEST START            ] ================================================================================================================="   
-//                 sh   'pip3 install pytest'                             // install pytest
-//                 sh   'pip3 install pytest-cov'                         // install pytest-coverage
-//                 sh   'python3 -m pytest --cov Program'                               // Run Tests & Check Coverage
-//                 echo "The JOB has been TESTED . . ."                   // ...
-//                 echo "=================== [         TEST COMPLETE          ] ================================================================================================================="   
-//             }
-//         }
-//         //-----------------------------------------------------------
-//         //  C O M P R E S S E D                             (PULL)  :
-//         //  P R O D U C T I O N   P A C K A G I N G                 :
-//         //-----------------------------------------------------------
-//         // ARTIFACT PACKAGING               :
-//         //-----------------------------------
-//         stage('Test') { 
-//             steps {
-//                 echo "=================== [          .... START            ] =================================================================================================================="   
-//                 sh   'pip3 install pytest'                             // install pytest
-//                 sh   'pip3 install pytest-cov'                         // install pytest-coverage
-//                 sh   'python3 -m pytest'                               // Run Tests & Check Coverage
-//                 sh   'python3 -m coverage report main.py main_test.py' // Run Tests & Check Coverage
-//                 echo "the job has been tested"                         // ...
-//                 echo "=================== [         .... COMPLETE          ] =================================================================================================================="   
-//             }
-//         }
-//         //-----------------------------------------------------------
-//         //  D E C O M P R E S S E D                         (GET)   :
-//         //  P R O D U C T I O N   P A C K A G I N G                 :
-//         //-----------------------------------------------------------
-//         // ARTIFACT DEPLOYMENT              :
-//         //-----------------------------------
-//         stage('Deploy') { 
-//             steps {
-//                 echo "the job has been deployed" 
-//             }
-//         }
+        stage('Integration Tests') { 
+            steps {
+
+                echo ". . ."   
+            }
+        }
+        stage('System Tests') { 
+            steps {
+                
+                echo ". . ."             
+            }
+        stage('Acceptance Tests (UAD)') { 
+            steps {
+                
+                echo ". . ."             
+            }
+        }
+        //-----------------------------------------------------------
+        //  C O M P R E S S E D                             (PULL)  :
+        //  P R O D U C T I O N   P A C K A G I N G                 :
+        //-----------------------------------------------------------
+        // ARTIFACT PACKAGING               :
+        //-----------------------------------
+        stage('Artifact-Package') { 
+            steps {
+                
+                echo ". . ."             
+            }
+        }
+        //-----------------------------------------------------------
+        //  D E C O M P R E S S E D                         (GET)   :
+        //  P R O D U C T I O N   P A C K A G I N G                 :
+        //-----------------------------------------------------------
+        // ARTIFACT DEPLOYMENT              :
+        //-----------------------------------
+        stage('Artifact-Deploy') { 
+            steps {
+                
+                echo ". . ."             
+            }
+        }
     }
     //-------------------------------------
     // STAGES END.                        :
