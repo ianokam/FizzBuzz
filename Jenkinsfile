@@ -89,8 +89,12 @@ pipeline {
         //-----------------------------------
         stage('Artifact-Package') { 
             steps {
-                
-                echo ". . ."             
+                echo "=================== [    ARTIFACT PACKAGING START    ] =================================================================================================================="   
+                echo ". . ."   
+//                 sh   'rm -rf *.tar.gz'                                                                           // Artifact Deletion   : Delete Old instances, if any, of the Build package
+//                 sh   'tar czf	FizzBuzz-$BUILD_NUMBER.tar.gz node_modules main.js package.json public LICENSE'  // Artifact Packaging  : Package the web app for Deployment [ ref: https://www.youtube.com/watch?v=XQt4fzt3bUc&t=262s ]
+//                 sh   '..'                                                                                        // Artifact Publishing : nexus repository ( https://www.sonatype.com/products/nexus-repository )
+                echo "=================== [  ARTIFACT PACKAGING COMPLETE   ] =================================================================================================================="   
             }
         }
         //-----------------------------------------------------------
