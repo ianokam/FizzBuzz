@@ -1,0 +1,13 @@
+FUNCTION SPECIFICATIONS
+---------------------------
+USE CASES:
+(1)[1] -  If a number is inputted in, the number is also returned
+(1)[1] -  The number is returned as a string
+---
+(1)[1] -  If the number is divisible by 3, then print "FIZZ"
+---
+(1)[1] -  If the number is divisible by 3, then print "BUZZ"
+---
+(1)[1] -  If the number is divisible by 3, then print "FIZZBUZZ"
+---
+(1)[1] -  Only numbers are acceptable INPUTS
