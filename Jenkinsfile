@@ -31,7 +31,7 @@ pipeline {
             steps {
                 echo "=================== [          BUILD START           ] =================================="   
                 git 'https://github.com/ianokam/FizzBuzz.git'               //****************CHECK
-                sh  'python3 Program/main.py' 
+                sh  'python3 /Program/main.py' 
                 stash(name: 'compiled-results', includes: 'sources/*.py*')  //****************CHECK
                 echo "The JOB has been BUILT . . ."                   // ...
                 echo "=================== [         BUILD COMPLETE         ] =================================="   
