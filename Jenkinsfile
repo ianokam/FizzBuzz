@@ -16,6 +16,7 @@ pipeline {
         //-----------------------------------
         stage('Checkout') { 
             steps {
+                echo "=================== [     GIT PULL REQUEST START     ] ======================"  
                 echo "=================== [     GIT PULL REQUEST START     ] ======================"   
                 checkout([$class: 'GitSCM', branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/ianokam/FizzBuzz.git']]])
                 echo "The JOB FILES have been PULLED . . ."                   // ...
