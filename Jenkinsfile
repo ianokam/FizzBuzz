@@ -105,7 +105,7 @@ pipeline {
                 echo "=================== [          TEST START            ] =================================================================================================================="   
                 sh   'pip3 install pytest'                             // install pytest
                 sh   'pip3 install pytest-cov'                         // install pytest-coverage
-                sh   'python3 -m pytest --cov src'                     // Run Tests & Check Coverage | Alt: sh   'python3 -m coverage report'
+                sh   'python3 -m pytest --cov src/program_package'                     // Run Tests & Check Coverage | Alt: sh   'python3 -m coverage report'
                 echo "The JOB has been TESTED . . ."                   // ...
                 echo "=================== [         TEST COMPLETE          ] =================================================================================================================="   
             }
