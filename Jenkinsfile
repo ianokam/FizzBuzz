@@ -88,7 +88,7 @@ pipeline {
             steps {
                 echo "=================== [          BUILD START           ] =================================================================================================================="   
 //                 git 'https://github.com/ianokam/FizzBuzz.git'               //****************CHECK
-                sh  'python3 src/main.py'     // Singular File := 'python3 src/main.py' 
+                sh  'python3 src/program_package/*'     // Singular File := 'python3 src/main.py' 
 //                 stash(name: 'compiled-results', includes: 'sources/*.py*')  //****************CHECK
                 echo "The JOB has been BUILT . . ."                   // ...
                 echo "=================== [         BUILD COMPLETE         ] =================================================================================================================="   
