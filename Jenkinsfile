@@ -64,6 +64,7 @@ pipeline {
                 
                 echo ". . ."             
             }
+        }
         stage('Acceptance Tests (UAD)') { 
             steps {
                 
