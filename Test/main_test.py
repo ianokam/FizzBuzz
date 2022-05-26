@@ -1,6 +1,11 @@
 """AN EXAMPLE TEST MODULE"""
+# importing sys
+import sys
+# adding Folder_2 to the system path
+sys.path.insert(0, '/Users/ibeawuchi/.jenkins/workspace/FizzBuzz-Python/Program')
 # import main
 from main import fizzBuzz
+
 
 class Test_for_a_str_number:
     def test_1( self ) -> int :
