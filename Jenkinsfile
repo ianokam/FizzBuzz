@@ -165,13 +165,12 @@ pipeline {
         // ARTIFACT DEPLOYMENT              :
         //-----------------------------------
         stage('Artifact - Deploying the Distribution Archives') { 
-                stage('Publish Build Info') {
             environment {
                 JFROG_CLI_OFFER_CONFIG = false
             }
             steps {
                 container('jfrog-cli-go'){
-                    withCredentials([usernamePassword(credentialsId: 'gociexamplerepo', passwordVariable: 'APIKEY', usernameVariable: 'USER')]) {
+                withCredentials([usernamePassword(credentialsId: 'gociexamplerepo', passwordVariable: 'APIKEY', usernameVariable: 'USER')]) {
                         sh "jfrog rt bce $JOB_NAME $BUILD_NUMBER"
                         sh "jfrog rt bag $JOB_NAME $BUILD_NUMBER"
                         sh "jfrog rt bad $JOB_NAME $BUILD_NUMBER \"go.*\""
