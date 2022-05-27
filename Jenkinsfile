@@ -171,10 +171,12 @@ pipeline {
             steps {
                 container('jfrog-cli-go'){
                 withCredentials([usernamePassword(credentialsId: 'gociexamplerepo', passwordVariable: 'APIKEY', usernameVariable: 'USER')]) {
+                        echo "=================== [  *****************   ] =================================================================================================================="   
                         sh "jfrog rt bce $JOB_NAME $BUILD_NUMBER"
                         sh "jfrog rt bag $JOB_NAME $BUILD_NUMBER"
                         sh "jfrog rt bad $JOB_NAME $BUILD_NUMBER \"go.*\""
                         sh "jfrog rt bp --build-url=https://jenkins.openshiftk8s.com/ --url=https://partnership.jfrog.io/artifactory --user=$USER --apikey=$APIKEY $JOB_NAME $BUILD_NUMBER"
+                        echo "=================== [  *****************   ] =================================================================================================================="   
                     }
                 }
             }
