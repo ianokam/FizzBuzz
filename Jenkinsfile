@@ -165,7 +165,7 @@ pipeline {
         //-----------------------------------
         def server 
         def rtMaven = Artifactory.newMavenBuild()
-        def buildInfo
+        def buildInfo //...
         stage ('Artifactory configuration') {
             echo "=================== [  *ARTIFACT PACKAGING COMPLETE   ] =================================================================================================================="   
             // Obtain an Artifactory server instance, defined in Jenkins --> Manage Jenkins --> Configure System:
