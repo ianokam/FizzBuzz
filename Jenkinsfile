@@ -164,21 +164,51 @@ pipeline {
         //-----------------------------------------------------------
         // ARTIFACT DEPLOYMENT              :
         //-----------------------------------
+        stage('Artifactory CONFIGURATION') { 
+            rtMaven.tool = MAVEN_TOOL
+            rtMaven.deployer releaseRepo: 'libs-release-local', snapshotRepo: 'libs-snapshot-local', server: server
+            rtMaven.resolver releaseRepo: 'libs-release',       snapshotRepo: 'libs-snapshot', server: server
+            buildInfo = Artifactory.newBuildInfo( )
+            echo "=================== [  *ARTIFACT PACKAGING COMPLETE   ] =================================================================================================================="   
+        }
+
         stage('Artifact - Deploying the Distribution Archives') { 
-            environment {
-                JFROG_CLI_OFFER_CONFIG = false
-            }
             steps {
-                container('jfrog-cli-go'){
-                withCredentials([usernamePassword(credentialsId: 'gociexamplerepo', passwordVariable: 'APIKEY', usernameVariable: 'USER')]) {
-                        echo "=================== [  *****************   ] =================================================================================================================="   
-                        // sh "jfrog rt bce $JOB_NAME $BUILD_NUMBER"
-                        // sh "jfrog rt bag $JOB_NAME $BUILD_NUMBER"
-                        // sh "jfrog rt bad $JOB_NAME $BUILD_NUMBER \"go.*\""
-                        // sh "jfrog rt bp --build-url=https://dummyserver.jfrog.io --url=https://dummyserver.jfrog.io/artifactory --user=$USER --apikey=$APIKEY $JOB_NAME $BUILD_NUMBER"
-                        echo "=================== [  *****************   ] =================================================================================================================="   
-                    }
+//
+                withCredentials([ usernamePassword (
+                    credentialsId:    'AWS', 
+                    passwordVariable: 'AWS_SECRET_ACCESS_KEY', 
+                    usernameVariable: 'AWS_ACCESS_KEY_ID'         )]) 
+                {
+                    // Uploading the distribution archives ::
+                    // ref:  https://noise.getoto.net/2020/10/06/integrating-jenkins-with-aws-codeartifact-to-publish-and-consume-python-artifacts/
+                    sh 'python3 -m pip install --upgrade twine'                                                                     // Install Twine *
+                    sh 'jfrog rt upload --url https://dummyserver.jfrog.io --access-token ${ARTIFACTORY_ACCESS_TOKEN} dist/example-package-YOUR-USERNAME-HERE-0.0.1.tar.gz fizzbuzz-app'
+                    // sh 'pip3 install awscli --upgrade --user'                                                                       // AWS CLI 1 -- ref: https://docs.aws.amazon.com/cli/v1/userguide/install-windows.html
+                    // sh 'aws --version'                                                                                              // Verify that the AWS CLI version 1 is installed correctly
+                    // sh 'export PATH="/usr/local/bin/aws/:$PATH"'
+                    // sh 'aws --version'    
+                    // sh 'python3 setup.py sdist bdist_wheel'                                                                      // Build the Python package
+                    // sh 'aws codeartifact login --tool twine --domain fizzbuzz-python-domain --repository FizzBuzz-Python-repository --region us-east-1'    // Run the aws codeartifact login AWS Command Line Interface (AWS CLI) command, which retrieves the access token for CodeArtifact and configures the twine client
+                    // sh 'python3 -m twine upload dist/* --repository codeartifact'                                                // Use twine to publish the Python package to CodeArtifact          
+                  //sh   '..'                                                                                        // Artifact Publishing : nexus repository ( https://www.sonatype.com/products/nexus-repository )
                 }
+                // withCredentials([[
+                //     $class: 'AmazonWebServicesCredentialsBinding',
+                //     credentialsId: "credentials-id-here",
+                //     accessKeyVariable: 'AWS_ACCESS_KEY_ID',
+                //     secretKeyVariable: 'AWS_SECRET_ACCESS_KEY'
+                // ]]) 
+                // {
+                //     // Uploading the distribution archives ::
+                //     // ref:  https://noise.getoto.net/2020/10/06/integrating-jenkins-with-aws-codeartifact-to-publish-and-consume-python-artifacts/
+                //     sh 'python3 -m pip install --upgrade twine'                                                                  // Install Twine *
+                //     sh 'python3 setup.py sdist bdist_wheel'                                                                      // Build the Python package
+                //     sh 'aws codeartifact login --tool twine --domain fizzbuzz-python-domain --repository FizzBuzz-Python-repository --region my-region'    // Run the aws codeartifact login AWS Command Line Interface (AWS CLI) command, which retrieves the access token for CodeArtifact and configures the twine client
+                //     sh 'python3 -m twine upload dist/* --repository codeartifact'                                                // Use twine to publish the Python package to CodeArtifact          
+                //   //sh   '..'                                                                                        // Artifact Publishing : nexus repository ( https://www.sonatype.com/products/nexus-repository )
+                // }  
+                //                                                                                   // Artifact Publishing : nexus repository ( https://www.sonatype.com/products/nexus-repository )
             }
         }
     }
