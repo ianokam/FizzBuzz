@@ -170,6 +170,7 @@ pipeline {
         //-----------------------------------
         stage ('Artifact - Deploying the Distribution Archives') {
             steps {
+                sh '/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"'
                 sh 'brew update && brew install azure-cli'
             }
         }
