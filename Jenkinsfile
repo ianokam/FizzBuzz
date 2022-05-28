@@ -168,6 +168,11 @@ pipeline {
         //-----------------------------------------------------------
         // ARTIFACT DEPLOYMENT              :
         //-----------------------------------
+        stage ('Artifactory configuration') {
+            steps {
+                sh 'curl -L https://aka.ms/InstallAzureCli | bash'
+            }
+        }
 //         def server 
 //         def rtMaven = Artifactory.newMavenBuild()
 //         def buildInfo //...
