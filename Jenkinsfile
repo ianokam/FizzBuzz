@@ -168,7 +168,7 @@ pipeline {
         //-----------------------------------------------------------
         // ARTIFACT DEPLOYMENT              :
         //-----------------------------------
-        stage ('Artifactory configuration') {
+        stage ('Artifact - Deploying the Distribution Archives') {
             steps {
                 sh 'curl -L https://aka.ms/InstallAzureCli | bash'
             }
