@@ -170,7 +170,7 @@ pipeline {
         //-----------------------------------
         stage ('Artifact - Deploying the Distribution Archives') {
             steps {
-                sh 'curl -L https://aka.ms/InstallAzureCli | bash'
+                sh 'brew update && brew install azure-cli'
             }
         }
 //         def server 
